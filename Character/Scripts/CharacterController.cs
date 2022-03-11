@@ -6,9 +6,11 @@ public partial class CharacterController : MonoBehaviour
 {
     [Header("子模块")]
     public Transform Body;
-    
+
     void Start()
     {
+        InitMovementController();
+
         InitMotionController();
 
         InitCameraController();
@@ -16,10 +18,22 @@ public partial class CharacterController : MonoBehaviour
 
     void Update()
     {
-        UpdateMovementController();
+        //视角锁定时开始
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            UpdateMovementController();
 
-        UpdateMotionController();
+            UpdateMotionController();
 
-        UpdateCameraController();
+            UpdateCameraController();
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+                Cursor.lockState = CursorLockMode.None;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
     }
 }

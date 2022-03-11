@@ -40,6 +40,9 @@ public partial class CharacterController : MonoBehaviour
     [Header("组件")]
     public Transform Camera_Player;
 
+    /// <summary>
+    /// Start - 摄像机初始化
+    /// </summary>
     void InitCameraController()
     {
         if (!Camera_Player)
@@ -50,27 +53,23 @@ public partial class CharacterController : MonoBehaviour
         TargetFieldofView = Normal_Field_of_View;
     }
 
+    /// <summary>
+    /// Update - 摄像机控制
+    /// </summary>
     void UpdateCameraController()
     {
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            ViewControl();
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Cursor.lockState = CursorLockMode.None;
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        ViewAngleControl();
+        ViewDistanceControl();
     }
 
-    public void ViewControl()
+    /// <summary>
+    /// 视角控制
+    /// </summary>
+    public void ViewAngleControl()
     {
         //获取鼠标输入
         float deltaMouseX = Input.GetAxis("Mouse X");
         float deltaMouseY = -Input.GetAxis("Mouse Y");
-        float deltaViewDistance = Input.GetAxis("Mouse ScrollWheel");
 
         //左右视角旋转
         float deltaX = deltaMouseX * Time.deltaTime * Sensitive_X;
@@ -81,6 +80,15 @@ public partial class CharacterController : MonoBehaviour
         float NowY = RotateY.localEulerAngles.x;
         if (NowY + deltaY > 360 + MinAngle_Y || NowY + deltaY < MaxAngle_Y)
             RotateY.localEulerAngles += new Vector3(deltaY, 0, 0);
+    }
+
+    /// <summary>
+    /// 视距控制
+    /// </summary>
+    public void ViewDistanceControl()
+    {
+        //获取鼠标输入
+        float deltaViewDistance = Input.GetAxis("Mouse ScrollWheel");
 
         //视距调整
         if (Camera_Player.localPosition.z <= MaxViewDistance && Camera_Player.localPosition.z >= MinViewDistance)
