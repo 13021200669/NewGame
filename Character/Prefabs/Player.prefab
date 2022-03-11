@@ -88,7 +88,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5950765071216363974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -2.5}
+  m_LocalPosition: {x: 0, y: 0.8, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5950765070283472510}
@@ -228,11 +228,11 @@ MonoBehaviour:
   Sensitive_Y: 200
   MaxAngle_Y: 80
   MinAngle_Y: -80
-  CameraHeight: 1
+  CameraHeight: 0.8
   CameraDistance: -2.5
   Speed_ViewDistanceShift: 300
-  MaxViewDistance: -2.5
-  MinViewDistance: -5
+  MaxViewDistance: -1.5
+  MinViewDistance: -3
   Normal_Field_of_View: 60
   Accelerate_Field_of_View: 80
   Camera_Player: {fileID: 5950765071216363993}
