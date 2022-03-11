@@ -80,6 +80,8 @@ public partial class CharacterController : MonoBehaviour
         float NowY = RotateY.localEulerAngles.x;
         if (NowY + deltaY > 360 + MinAngle_Y || NowY + deltaY < MaxAngle_Y)
             RotateY.localEulerAngles += new Vector3(deltaY, 0, 0);
+        else
+            RotateY.localEulerAngles = new Vector3(0, 0, 0);
     }
 
     /// <summary>
