@@ -242,6 +242,10 @@ MonoBehaviour:
   Key_isDamage: IsDamage
   Key_isDead: IsDead
   MoveSpeed: 10
+  Accelerate_Multiple: 3
+  Accelerate_Time: 1
+  Normal_Field_of_View: 60
+  Accelerate_Field_of_View: 80
   JumpForce: 200
 --- !u!136 &5649740688056762208
 CapsuleCollider:

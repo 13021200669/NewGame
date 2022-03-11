@@ -32,6 +32,11 @@ public partial class CharacterController : MonoBehaviour
     [Range(-5, 0)]
     public float MinViewDistance = -5f;
 
+    [Header("视野")]
+    public float Normal_Field_of_View = 60f;
+    public float Accelerate_Field_of_View = 80f;
+    private float TargetFieldofView;
+
     [Header("组件")]
     public Transform Camera_Player;
 
@@ -41,6 +46,8 @@ public partial class CharacterController : MonoBehaviour
             Camera_Player = GameObject.Find("Camera_Player").transform;
 
         Camera_Player.localPosition = new Vector3(0, CameraHeight, CameraDistance);
+
+        TargetFieldofView = Normal_Field_of_View;
     }
 
     void UpdateCameraController()
@@ -79,12 +86,15 @@ public partial class CharacterController : MonoBehaviour
         if (Camera_Player.localPosition.z <= MaxViewDistance && Camera_Player.localPosition.z >= MinViewDistance)
         {
             Camera_Player.localPosition += new Vector3(0, 0, deltaViewDistance * Time.deltaTime * Speed_ViewDistanceShift);
-            
+
             //检查视距是否超出限制
             if (Camera_Player.localPosition.z > MaxViewDistance)
                 Camera_Player.localPosition = new Vector3(0, CameraHeight, MaxViewDistance);
             else if (Camera_Player.localPosition.z < MinViewDistance)
                 Camera_Player.localPosition = new Vector3(0, CameraHeight, MinViewDistance);
         }
+
+        //视野调整
+        Camera_Player.GetComponent<Camera>().fieldOfView = Mathf.Lerp(Camera_Player.GetComponent<Camera>().fieldOfView, TargetFieldofView, Time.deltaTime / 0.2f);
     }
 }
