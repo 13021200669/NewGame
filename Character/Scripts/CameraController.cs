@@ -4,13 +4,13 @@ using UnityEngine;
 
 public partial class CharacterController : MonoBehaviour
 {
-    [Header("鼠标灵敏度")]
+    [Header("视角旋转")]
     public Transform RotateX;
     public Transform RotateY;
 
+    [Header("鼠标灵敏度")]
     public float Sensitive_X = 200f;
     public float Sensitive_Y = 200f;
-    public float Speed_ViewDistanceShift = 10f;
 
     [Header("视角限制[-90,90]")]
     [Range(-90, 90)]
@@ -18,11 +18,19 @@ public partial class CharacterController : MonoBehaviour
     [Range(-90, 90)]
     public float MinAngle_Y = -80f;
 
-    [Header("视距限制[0,20]")]
-    [Range(0, 20)]
-    public float MaxViewDistance = 10f;
-    [Range(0, 20)]
-    public float MinViewDistance = 5f;
+    [Header("摄像机高度[-2,2]")]
+    [Range(-2, 2)]
+    public float CameraHeight = 1f;
+    [Header("摄像机初始距离[-5,0]")]
+    [Range(-5, 0)]
+    public float CameraDistance = -2f;
+
+    [Header("视距限制[0,5]")]
+    public float Speed_ViewDistanceShift = 300f;
+    [Range(-5, 0)]
+    public float MaxViewDistance = 0f;
+    [Range(-5, 0)]
+    public float MinViewDistance = -5f;
 
     [Header("组件")]
     public Transform Camera_Player;
@@ -31,6 +39,8 @@ public partial class CharacterController : MonoBehaviour
     {
         if (!Camera_Player)
             Camera_Player = GameObject.Find("Camera_Player").transform;
+
+        Camera_Player.localPosition = new Vector3(0, CameraHeight, CameraDistance);
     }
 
     void UpdateCameraController()
@@ -54,7 +64,6 @@ public partial class CharacterController : MonoBehaviour
         float deltaMouseX = Input.GetAxis("Mouse X");
         float deltaMouseY = -Input.GetAxis("Mouse Y");
         float deltaViewDistance = Input.GetAxis("Mouse ScrollWheel");
-        Debug.Log(deltaViewDistance);
 
         //左右视角旋转
         float deltaX = deltaMouseX * Time.deltaTime * Sensitive_X;
@@ -67,7 +76,15 @@ public partial class CharacterController : MonoBehaviour
             RotateY.localEulerAngles += new Vector3(deltaY, 0, 0);
 
         //视距调整
-        if (Camera_Player.localPosition.z < MaxViewDistance && Camera_Player.localPosition.z > MinViewDistance)
+        if (Camera_Player.localPosition.z <= MaxViewDistance && Camera_Player.localPosition.z >= MinViewDistance)
+        {
             Camera_Player.localPosition += new Vector3(0, 0, deltaViewDistance * Time.deltaTime * Speed_ViewDistanceShift);
+            
+            //检查视距是否超出限制
+            if (Camera_Player.localPosition.z > MaxViewDistance)
+                Camera_Player.localPosition = new Vector3(0, CameraHeight, MaxViewDistance);
+            else if (Camera_Player.localPosition.z < MinViewDistance)
+                Camera_Player.localPosition = new Vector3(0, CameraHeight, MinViewDistance);
+        }
     }
 }

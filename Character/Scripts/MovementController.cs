@@ -4,7 +4,7 @@ using UnityEngine;
 
 public partial class CharacterController : MonoBehaviour
 {
-    public float Speed = 10;
+    public float MoveSpeed = 10;
     public float JumpForce = 100;
 
     // Update is called once per frame
@@ -13,8 +13,8 @@ public partial class CharacterController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        transform.position += RotateX.right * x * Time.deltaTime * Speed;
-        transform.position += RotateX.forward * z * Time.deltaTime * Speed;
+        transform.position += RotateX.right * x * Time.deltaTime * MoveSpeed;
+        transform.position += RotateX.forward * z * Time.deltaTime * MoveSpeed;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
