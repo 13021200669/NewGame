@@ -9,7 +9,8 @@ public class CharacterControlEditor : Editor
     //--------------------------子物体--------------------------
     //子物体
     SerializedProperty _Body;
-    SerializedProperty _Camera_Player;
+    SerializedProperty _CamPlayer;
+    SerializedProperty _RigPlayer;
 
     //--------------------------运动模块--------------------------
     //移动速度
@@ -37,7 +38,7 @@ public class CharacterControlEditor : Editor
     SerializedProperty _Accelerate_Field_of_View;
     const float _MinLimit_Field_of_View = 40f;
     const float _MaxLimit_Field_of_View = 100f;
-    
+
     //视野模糊脚本
     SerializedProperty _FocusScript;
     //视野模糊程度
@@ -84,7 +85,8 @@ public class CharacterControlEditor : Editor
     {
         //获取Property对象
         _Body = serializedObject.FindProperty("Body");
-        _Camera_Player = serializedObject.FindProperty("Camera_Player");
+        _CamPlayer = serializedObject.FindProperty("CamPlayer");
+        _RigPlayer = serializedObject.FindProperty("RigPlayer");
 
         _MoveSpeed = serializedObject.FindProperty("MoveSpeed");
         _JumpForce = serializedObject.FindProperty("JumpForce");
@@ -119,18 +121,23 @@ public class CharacterControlEditor : Editor
         //--------------------------绘制GUILayout--------------------------
 
         //--------------------------子物体--------------------------
+        GUILayout.Space(10);
         EditorGUILayout.LabelField("子物体");
 
         CustomEditorGUILayout.CustomPropertyField("骨骼蒙皮", _Body);
 
-        CustomEditorGUILayout.CustomPropertyField("主摄像机", _Camera_Player);
+        CustomEditorGUILayout.CustomPropertyField("主摄像机", _CamPlayer);
+
+        CustomEditorGUILayout.CustomPropertyField("刚体", _RigPlayer);
 
         //--------------------------运动模块--------------------------
-        EditorGUILayout.Space(20);
+        GUILayout.Space(20);
         EditorGUILayout.LabelField("运动模块");
 
         CustomEditorGUILayout.CustomSlider("移动速度", _MoveSpeed, "跳跃力度", _JumpForce,
             _MinLimit_MoveSpeed, _MaxLimit_MoveSpeed, _MinLimit_JumpForce, _MaxLimit_JumpForce);
+
+        CustomEditorGUILayout.CustomToggle("无限冲刺", target, ref scriptObject.isAccelerateTimeUnLimited);
 
         CustomEditorGUILayout.CustomSlider("冲刺倍率", _Accelerate_Multiple, "冲刺时间", _Accelerate_Time,
             _MinLimit_Accelerate_Multiple, _MaxLimit_Accelerate_Multiple, _MinLimit_Accelerate_Time, _MaxLimit_Accelerate_Time);
@@ -142,7 +149,7 @@ public class CharacterControlEditor : Editor
         CustomEditorGUILayout.CustomSlider("正常模糊", _Normal_FocusSize, "冲刺模糊", _Accelerate_FocusSize, _MinLimit_FocusSize, _MaxLimit_FocusSize);
 
         //--------------------------相机模块--------------------------
-        EditorGUILayout.Space(20);
+        GUILayout.Space(20);
         EditorGUILayout.LabelField("相机模块");
 
         CustomEditorGUILayout.CustomPropertyField("水平旋转", _RotateX, "竖直旋转", _RotateY);
@@ -160,7 +167,7 @@ public class CharacterControlEditor : Editor
         CustomEditorGUILayout.CustomMinMaxSlider("视距范围", _MinLimit_ViewDistance, _MaxLimit_ViewDistance, target,
             ref scriptObject.MinViewDistance, ref scriptObject.MaxViewDistance);
 
-        EditorGUILayout.Space(10);
+        GUILayout.Space(10);
         //--------------------------保存更改--------------------------
 
         //对serializedProperty应用更改
