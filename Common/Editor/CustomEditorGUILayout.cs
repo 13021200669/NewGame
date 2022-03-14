@@ -17,7 +17,7 @@ namespace CustomEditorGUI
         /// <param name="label"></param>
         /// <param name="property"></param>
         /// <param name="GUIOptions"></param>
-        public static void CustomToggle(string label,Object target, ref bool isTrue)
+        public static void CustomField_Toggle(string label,Object target, ref bool isTrue)
         {
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));
 
@@ -52,7 +52,7 @@ namespace CustomEditorGUI
         /// <param name="label"></param>
         /// <param name="property"></param>
         /// <param name="GUIOptions"></param>
-        public static void CustomPropertyField(string label, SerializedProperty property)
+        public static void CustomField_Property(string label, SerializedProperty property)
         {
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));
 
@@ -70,7 +70,7 @@ namespace CustomEditorGUI
         /// <param name="label2"></param>
         /// <param name="property2"></param>
         /// <param name="GUIOptions"></param>
-        public static void CustomPropertyField(string label1, SerializedProperty property1, string label2, SerializedProperty property2)
+        public static void CustomField_Property(string label1, SerializedProperty property1, string label2, SerializedProperty property2)
         {
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));
 
@@ -93,7 +93,7 @@ namespace CustomEditorGUI
         /// <param name="minLimit"></param>
         /// <param name="maxLimit"></param>
         /// <param name="GUIOptions"></param>
-        public static void CustomSlider(string label, SerializedProperty property, float minLimit, float maxLimit)
+        public static void CustomField_Slider(string label, SerializedProperty property, float minLimit, float maxLimit)
         {
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));
 
@@ -113,7 +113,7 @@ namespace CustomEditorGUI
         /// <param name="minLimit"></param>
         /// <param name="maxLimit"></param>
         /// <param name="GUIOptions"></param>
-        public static void CustomSlider(string label1, SerializedProperty property1, string label2, SerializedProperty property2, params float[] para)
+        public static void CustomField_Slider(string label1, SerializedProperty property1, string label2, SerializedProperty property2, params float[] para)
         {
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));
 
@@ -140,7 +140,7 @@ namespace CustomEditorGUI
         /// <param name="target"></param>
         /// <param name="minValue"></param>
         /// <param name="maxValue"></param>
-        public static void CustomMinMaxSlider(string label, float minLimit, float maxLimit, Object target, ref float minValue, ref float maxValue)
+        public static void CustomField_MinMaxSlider(string label, float minLimit, float maxLimit, Object target, ref float minValue, ref float maxValue)
         {
             //开始该行
             EditorGUILayout.BeginHorizontal(GUILayout.Height(HorizontalHeight));

@@ -124,47 +124,47 @@ public class CharacterControlEditor : Editor
         GUILayout.Space(10);
         EditorGUILayout.LabelField("子物体");
 
-        CustomEditorGUILayout.CustomPropertyField("骨骼蒙皮", _Body);
+        CustomEditorGUILayout.CustomField_Property("骨骼蒙皮", _Body);
 
-        CustomEditorGUILayout.CustomPropertyField("主摄像机", _CamPlayer);
+        CustomEditorGUILayout.CustomField_Property("主摄像机", _CamPlayer);
 
-        CustomEditorGUILayout.CustomPropertyField("刚体", _RigPlayer);
+        CustomEditorGUILayout.CustomField_Property("刚体", _RigPlayer);
+
+        CustomEditorGUILayout.CustomField_Property("模糊控制", _FocusScript);
 
         //--------------------------运动模块--------------------------
         GUILayout.Space(20);
         EditorGUILayout.LabelField("运动模块");
 
-        CustomEditorGUILayout.CustomSlider("移动速度", _MoveSpeed, "跳跃力度", _JumpForce,
+        CustomEditorGUILayout.CustomField_Slider("移动速度", _MoveSpeed, "跳跃力度", _JumpForce,
             _MinLimit_MoveSpeed, _MaxLimit_MoveSpeed, _MinLimit_JumpForce, _MaxLimit_JumpForce);
 
-        CustomEditorGUILayout.CustomToggle("无限冲刺", target, ref scriptObject.isAccelerateTimeUnLimited);
+        CustomEditorGUILayout.CustomField_Toggle("无限冲刺", target, ref scriptObject.isAccelerateTimeUnLimited);
 
-        CustomEditorGUILayout.CustomSlider("冲刺倍率", _Accelerate_Multiple, "冲刺时间", _Accelerate_Time,
+        CustomEditorGUILayout.CustomField_Slider("冲刺倍率", _Accelerate_Multiple, "冲刺时间", _Accelerate_Time,
             _MinLimit_Accelerate_Multiple, _MaxLimit_Accelerate_Multiple, _MinLimit_Accelerate_Time, _MaxLimit_Accelerate_Time);
 
-        CustomEditorGUILayout.CustomSlider("正常视野", _Normal_Field_of_View, "冲刺视野", _Accelerate_Field_of_View, _MinLimit_Field_of_View, _MaxLimit_Field_of_View);
+        CustomEditorGUILayout.CustomField_Slider("正常视野", _Normal_Field_of_View, "冲刺视野", _Accelerate_Field_of_View, _MinLimit_Field_of_View, _MaxLimit_Field_of_View);
 
-        CustomEditorGUILayout.CustomPropertyField("模糊控制", _FocusScript);
-
-        CustomEditorGUILayout.CustomSlider("正常模糊", _Normal_FocusSize, "冲刺模糊", _Accelerate_FocusSize, _MinLimit_FocusSize, _MaxLimit_FocusSize);
+        CustomEditorGUILayout.CustomField_Slider("正常模糊", _Normal_FocusSize, "冲刺模糊", _Accelerate_FocusSize, _MinLimit_FocusSize, _MaxLimit_FocusSize);
 
         //--------------------------相机模块--------------------------
         GUILayout.Space(20);
         EditorGUILayout.LabelField("相机模块");
 
-        CustomEditorGUILayout.CustomPropertyField("水平旋转", _RotateX, "竖直旋转", _RotateY);
+        CustomEditorGUILayout.CustomField_Property("水平旋转", _RotateX, "竖直旋转", _RotateY);
 
-        CustomEditorGUILayout.CustomSlider("水平灵敏", _Sensitive_X, "竖直灵敏", _Sensitive_Y, _MinLimit_Sensitive, _MaxLimit_Sensitive);
+        CustomEditorGUILayout.CustomField_Slider("水平灵敏", _Sensitive_X, "竖直灵敏", _Sensitive_Y, _MinLimit_Sensitive, _MaxLimit_Sensitive);
 
-        CustomEditorGUILayout.CustomSlider("初始视高", _CameraHeight, "初始视距", _CameraDistance,
+        CustomEditorGUILayout.CustomField_Slider("初始视高", _CameraHeight, "初始视距", _CameraDistance,
             _MinLimit_CameraHeight, _MaxLimit_CameraHeight, _MinLimit_CameraDistance, _MaxLimit_CameraDistance);
 
-        CustomEditorGUILayout.CustomSlider("视距速度", _Speed_ViewDistanceShift, _MinLimit_Speed_ViewDistanceShift, _MaxLimit_Speed_ViewDistanceShift);
+        CustomEditorGUILayout.CustomField_Slider("视距速度", _Speed_ViewDistanceShift, _MinLimit_Speed_ViewDistanceShift, _MaxLimit_Speed_ViewDistanceShift);
 
-        CustomEditorGUILayout.CustomMinMaxSlider("视角范围", _MinLimit_Angle_Y, _MaxLimit_Angle_Y, target,
+        CustomEditorGUILayout.CustomField_MinMaxSlider("视角范围", _MinLimit_Angle_Y, _MaxLimit_Angle_Y, target,
             ref scriptObject.MinAngle_Y, ref scriptObject.MaxAngle_Y);
 
-        CustomEditorGUILayout.CustomMinMaxSlider("视距范围", _MinLimit_ViewDistance, _MaxLimit_ViewDistance, target,
+        CustomEditorGUILayout.CustomField_MinMaxSlider("视距范围", _MinLimit_ViewDistance, _MaxLimit_ViewDistance, target,
             ref scriptObject.MinViewDistance, ref scriptObject.MaxViewDistance);
 
         GUILayout.Space(10);
