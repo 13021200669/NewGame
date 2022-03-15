@@ -114,15 +114,16 @@ public class CharacterControlEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        GUILayout.Space(10);
         //--------------------------获取property--------------------------
 
         CharacterControl scriptObject = target as CharacterControl;
 
         //--------------------------绘制GUILayout--------------------------
 
-        //--------------------------运动模块--------------------------
-        GUILayout.Space(10);
-        EditorGUILayout.LabelField("运动模块----------------------------------------------------------------------------------------------------");
+        EditorGUILayout.LabelField("运动模块------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        GUILayout.Space(5);
 
         CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.Start, "骨骼蒙皮", _Body);
 
@@ -145,12 +146,14 @@ public class CharacterControlEditor : Editor
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Start, "正常模糊", _Normal_FocusSize, _MinLimit_FocusSize, _MaxLimit_FocusSize);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "冲刺模糊", _Accelerate_FocusSize, _MinLimit_FocusSize, _MaxLimit_FocusSize);
-        
-        EditorGUILayout.LabelField("-------------------------------------------------------------------------------------------------------------");
 
-        //--------------------------相机模块--------------------------
+        EditorGUILayout.LabelField("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
         GUILayout.Space(20);
-        EditorGUILayout.LabelField("相机模块----------------------------------------------------------------------------------------------------");
+
+        EditorGUILayout.LabelField("相机模块------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        GUILayout.Space(5);
 
         CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.Start, "主摄像机", _CamPlayer);
 
@@ -164,11 +167,9 @@ public class CharacterControlEditor : Editor
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "竖直灵敏", _Sensitive_Y, _MinLimit_Sensitive, _MaxLimit_Sensitive);
 
-        CustomEditorGUILayout.CustomField_MinMaxSlider(CustomEditorGUILayoutMode.Start, "视角范围", _MinLimit_Angle_Y, _MaxLimit_Angle_Y, target,
-            ref scriptObject.MinAngle_Y, ref scriptObject.MaxAngle_Y);
+        CustomEditorGUILayout.CustomField_MinMaxSlider(CustomEditorGUILayoutMode.Start, "视角范围", _MinLimit_Angle_Y, _MaxLimit_Angle_Y, target, ref scriptObject.MinAngle_Y, ref scriptObject.MaxAngle_Y);
 
-        CustomEditorGUILayout.CustomField_MinMaxSlider(CustomEditorGUILayoutMode.End, "视距范围", _MinLimit_ViewDistance, _MaxLimit_ViewDistance, target,
-            ref scriptObject.MinViewDistance, ref scriptObject.MaxViewDistance);
+        CustomEditorGUILayout.CustomField_MinMaxSlider(CustomEditorGUILayoutMode.End, "视距范围", _MinLimit_ViewDistance, _MaxLimit_ViewDistance, target, ref scriptObject.MinViewDistance, ref scriptObject.MaxViewDistance);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Start, "初始视距", _CameraDistance, _MinLimit_CameraDistance, _MaxLimit_CameraDistance);
 
@@ -176,13 +177,15 @@ public class CharacterControlEditor : Editor
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Whole, "初始视高", _CameraHeight, _MinLimit_CameraHeight, _MaxLimit_CameraHeight);
 
-        EditorGUILayout.LabelField("-------------------------------------------------------------------------------------------------------------");
+        EditorGUILayout.LabelField("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
-        GUILayout.Space(10);
         //--------------------------保存更改--------------------------
 
         //对serializedProperty应用更改
         //始终在OnInspectorGUI的末尾执行此操作
         serializedObject.ApplyModifiedProperties();
+
+        //------------------------------------------------------------
+        GUILayout.Space(10);
     }
 }

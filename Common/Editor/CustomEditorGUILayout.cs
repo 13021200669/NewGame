@@ -1,15 +1,20 @@
 using UnityEngine;
 using UnityEditor;
 
-public enum CustomEditorGUILayoutMode
-{
-    Start, Insert, End, Whole
-}
-
 namespace CustomEditorGUI
 {
+    //布局模式
+    public enum CustomEditorGUILayoutMode
+    {
+        Start,  //行开头
+        Insert, //行插入
+        End,    //行结尾
+        Whole   //整行
+    }
+
     public static class CustomEditorGUILayout
     {
+        //布局常量
         const float Height_Horizontal = 20;
         const float Space_InLine = 10;
 
@@ -25,7 +30,7 @@ namespace CustomEditorGUI
         const float Width_MinMaxSlider_FloatField = 50;
 
         /// <summary>
-        /// 开关
+        /// Toggle开关
         /// </summary>
         /// <param name="label"></param>
         /// <param name="property"></param>
@@ -100,7 +105,7 @@ namespace CustomEditorGUI
         }
 
         /// <summary>
-        /// Slider
+        /// Slider滑动条
         /// </summary>
         /// <param name="label"></param>
         /// <param name="property"></param>
@@ -119,7 +124,7 @@ namespace CustomEditorGUI
 
             //property标题
             EditorGUILayout.LabelField(label, GUILayout.Width(Width_Label));
-            
+
             //绘制property
             EditorGUILayout.Slider(property, minLimit, maxLimit, new GUIContent(), GUILayout.MinWidth(MinWidth_Slider));
 
@@ -129,7 +134,7 @@ namespace CustomEditorGUI
         }
 
         /// <summary>
-        /// MinMaxSlider
+        /// MinMaxSlider范围滑动条
         /// </summary>
         /// <param name="label"></param>
         /// <param name="minLimit"></param>
