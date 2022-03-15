@@ -4,8 +4,8 @@
 public partial class CharacterControl : MonoBehaviour
 {
     //运动模块
-    [SerializeField] public float MoveSpeed = 10;//移动速度
-    [SerializeField] public float JumpForce = 100;//跳跃力度
+    [SerializeField] public float MoveSpeed = 5;//移动速度
+    [SerializeField] public float JumpForce = 200;//跳跃力度
 
     [SerializeField] public bool isAccelerateTimeUnLimited = false;//无限冲刺
 

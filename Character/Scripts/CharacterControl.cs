@@ -55,9 +55,4 @@ public partial class CharacterControl : MonoBehaviour
         }
 
     }
-
-    private void FixedUpdate()
-    {
-
-    }
 }

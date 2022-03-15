@@ -26,7 +26,7 @@ public partial class CharacterControl : MonoBehaviour
 
     [SerializeField] public CameraFilterPack_Blur_Focus FocusScript;//视野模糊脚本
     [SerializeField] public float Normal_FocusSize = 0.15f;//正常视野模糊程度
-    [SerializeField] public float Accelerate_FocusSize = 10f;//冲刺视野模糊程度
+    [SerializeField] public float Accelerate_FocusSize = 2f;//冲刺视野模糊程度
 
     private float TargetFieldofView;//目标视野（用于视野渐变过渡）
     private float TargetFocusSize;//目标视野模糊程度

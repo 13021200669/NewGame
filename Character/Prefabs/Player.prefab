@@ -285,7 +285,8 @@ MonoBehaviour:
   Key_isDamage: IsDamage
   Key_isDead: IsDead
   MoveSpeed: 5
-  JumpForce: 100
+  JumpForce: 200
+  isAccelerateTimeUnLimited: 0
   Accelerate_Multiple: 3
   Accelerate_Time: 1
 --- !u!136 &5649740688056762208
