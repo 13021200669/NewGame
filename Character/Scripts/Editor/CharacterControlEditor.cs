@@ -137,7 +137,7 @@ public class CharacterControlEditor : Editor
 
         CustomEditorGUILayout.CustomField_Toggle(CustomEditorGUILayoutMode.Insert, "无限冲刺", target, ref scriptObject.isAccelerateTimeUnLimited);
 
-        CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "冲刺时间", _Accelerate_Time, _MinLimit_Accelerate_Multiple, _MaxLimit_Accelerate_Multiple);
+        CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "冲刺时间", _Accelerate_Time, _MinLimit_Accelerate_Time, _MaxLimit_Accelerate_Time);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Start, "正常视野", _Normal_Field_of_View, _MinLimit_Field_of_View, _MaxLimit_Field_of_View);
 
