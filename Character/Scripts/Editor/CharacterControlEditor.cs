@@ -6,13 +6,10 @@ using CustomEditorGUI;
 [CanEditMultipleObjects]
 public class CharacterControlEditor : Editor
 {
-    //--------------------------子物体--------------------------
-    //子物体
-    SerializedProperty _Body;
-    SerializedProperty _CamPlayer;
-    SerializedProperty _RigPlayer;
-
     //--------------------------运动模块--------------------------
+    SerializedProperty _RigPlayer;
+    SerializedProperty _ColPlayer;
+
     //移动速度
     SerializedProperty _MoveSpeed;
     const float _MinLimit_MoveSpeed = 0f;
@@ -22,6 +19,11 @@ public class CharacterControlEditor : Editor
     SerializedProperty _JumpForce;
     const float _MinLimit_JumpForce = 100f;
     const float _MaxLimit_JumpForce = 500f;
+
+    //最大下落速度
+    SerializedProperty _MaxFallSpeed;
+    const float _MinLimit_MaxFallSpeed = 1f;
+    const float _MaxLimit_MaxFallSpeed = 50f;
 
     //冲刺倍率
     SerializedProperty _Accelerate_Multiple;
@@ -39,8 +41,6 @@ public class CharacterControlEditor : Editor
     const float _MinLimit_Field_of_View = 40f;
     const float _MaxLimit_Field_of_View = 100f;
 
-    //视野模糊脚本
-    SerializedProperty _FocusScript;
     //视野模糊程度
     SerializedProperty _Normal_FocusSize;
     SerializedProperty _Accelerate_FocusSize;
@@ -48,6 +48,12 @@ public class CharacterControlEditor : Editor
     const float _MaxLimit_FocusSize = 10f;
 
     //--------------------------相机模块--------------------------
+
+    SerializedProperty _CamPlayer;
+
+    //视野模糊脚本
+    SerializedProperty _FocusScript;
+
     //摄像机旋转层级 X/Y
     SerializedProperty _RotateX;
     SerializedProperty _RotateY;
@@ -81,15 +87,20 @@ public class CharacterControlEditor : Editor
     const float _MinLimit_ViewDistance = -5f;
     const float _MaxLimit_ViewDistance = 0f;
 
+    //--------------------------动作模块--------------------------
+
+    SerializedProperty _Body;
+    SerializedProperty _AnimPlayer;
+
     void OnEnable()
     {
         //获取Property对象
-        _Body = serializedObject.FindProperty("Body");
-        _CamPlayer = serializedObject.FindProperty("CamPlayer");
         _RigPlayer = serializedObject.FindProperty("RigPlayer");
+        _ColPlayer = serializedObject.FindProperty("ColPlayer");
 
         _MoveSpeed = serializedObject.FindProperty("MoveSpeed");
         _JumpForce = serializedObject.FindProperty("JumpForce");
+        _MaxFallSpeed = serializedObject.FindProperty("MaxFallSpeed");
 
         _Accelerate_Multiple = serializedObject.FindProperty("Accelerate_Multiple");
         _Accelerate_Time = serializedObject.FindProperty("Accelerate_Time");
@@ -97,12 +108,15 @@ public class CharacterControlEditor : Editor
         _Normal_Field_of_View = serializedObject.FindProperty("Normal_Field_of_View");
         _Accelerate_Field_of_View = serializedObject.FindProperty("Accelerate_Field_of_View");
 
-        _FocusScript = serializedObject.FindProperty("FocusScript");
         _Normal_FocusSize = serializedObject.FindProperty("Normal_FocusSize");
         _Accelerate_FocusSize = serializedObject.FindProperty("Accelerate_FocusSize");
 
+        _CamPlayer = serializedObject.FindProperty("CamPlayer");
+        _FocusScript = serializedObject.FindProperty("FocusScript");
+
         _RotateX = serializedObject.FindProperty("RotateX");
         _RotateY = serializedObject.FindProperty("RotateY");
+
         _Sensitive_X = serializedObject.FindProperty("Sensitive_X");
         _Sensitive_Y = serializedObject.FindProperty("Sensitive_Y");
 
@@ -110,6 +124,9 @@ public class CharacterControlEditor : Editor
         _CameraDistance = serializedObject.FindProperty("CameraDistance");
 
         _Speed_ViewDistanceShift = serializedObject.FindProperty("Speed_ViewDistanceShift");
+
+        _Body = serializedObject.FindProperty("Body");
+        _AnimPlayer = serializedObject.FindProperty("AnimPlayer");
     }
 
     public override void OnInspectorGUI()
@@ -121,17 +138,38 @@ public class CharacterControlEditor : Editor
 
         //--------------------------绘制GUILayout--------------------------
 
+        //自动关联property
+        if (GUILayout.Button(new GUIContent("自动关联")))
+        {
+            if (scriptObject.CheckDisConnected())
+            {
+                //对场景标记待保存状态
+                Undo.RecordObject(target, "Property Change");
+
+                scriptObject.AutoConnect();
+
+                //public static void RecordObject (Object objectToUndo, string name)
+                //对于 objectToUndo 为预制件实例的情况下正确处理实例
+                //必须在 RecordObject 之后调用 PrefabUtility.RecordPrefabInstancePropertyModifications
+                PrefabUtility.RecordPrefabInstancePropertyModifications(target);
+            }
+        }
+
+        GUILayout.Space(5);
+
         EditorGUILayout.LabelField("运动模块------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 
         GUILayout.Space(5);
 
-        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.Start, "骨骼蒙皮", _Body);
+        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.Start, "刚体", _RigPlayer);
 
-        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.End, "刚  体", _RigPlayer);
+        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.End, "碰撞体", _ColPlayer);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Start, "移动速度", _MoveSpeed, _MinLimit_MoveSpeed, _MaxLimit_MoveSpeed);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "跳跃力度", _JumpForce, _MinLimit_JumpForce, _MaxLimit_JumpForce);
+
+        CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Whole, "下落速度", _MaxFallSpeed, _MinLimit_MaxFallSpeed, _MaxLimit_MaxFallSpeed);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Start, "冲刺倍率", _Accelerate_Multiple, _MinLimit_Accelerate_Multiple, _MaxLimit_Accelerate_Multiple);
 
@@ -176,6 +214,30 @@ public class CharacterControlEditor : Editor
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.End, "视距速度", _Speed_ViewDistanceShift, _MinLimit_Speed_ViewDistanceShift, _MaxLimit_Speed_ViewDistanceShift);
 
         CustomEditorGUILayout.CustomField_Slider(CustomEditorGUILayoutMode.Whole, "初始视高", _CameraHeight, _MinLimit_CameraHeight, _MaxLimit_CameraHeight);
+
+        EditorGUILayout.LabelField("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        GUILayout.Space(20);
+
+        EditorGUILayout.LabelField("动作模块------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+
+        GUILayout.Space(5);
+
+        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.Start, "骨骼蒙皮", _Body);
+
+        CustomEditorGUILayout.CustomField_Property(CustomEditorGUILayoutMode.End, "控制器", _AnimPlayer);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.Start, "跑步", target, ref scriptObject.Key_isRun);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.End, "跳跃", target, ref scriptObject.Key_isJump);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.Start, "攻击01", target, ref scriptObject.Key_isAttack01);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.End, "攻击02", target, ref scriptObject.Key_isAttack02);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.Start, "受击", target, ref scriptObject.Key_isDamage);
+
+        CustomEditorGUILayout.CustomField_TextField(CustomEditorGUILayoutMode.End, "死亡", target, ref scriptObject.Key_isDead);
 
         EditorGUILayout.LabelField("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
 

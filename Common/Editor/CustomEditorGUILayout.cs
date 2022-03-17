@@ -22,6 +22,8 @@ namespace CustomEditorGUI
 
         const float Width_Toggle = 20;
 
+        const float MinWidth_TextField = 140;
+
         const float MinWidth_Slider = 140;
 
         const float MinWidth_PropertyField = 140;
@@ -98,6 +100,49 @@ namespace CustomEditorGUI
 
             //绘制property
             EditorGUILayout.PropertyField(property, new GUIContent(), GUILayout.MinWidth(MinWidth_PropertyField));
+
+            //是否结束当前行
+            if (mode == CustomEditorGUILayoutMode.Whole || mode == CustomEditorGUILayoutMode.End)
+                EditorGUILayout.EndHorizontal();
+        }
+
+
+        public static void CustomField_TextField(CustomEditorGUILayoutMode mode, string label, Object target, ref string text)
+        {
+            //是否开始新一行
+            if (mode == CustomEditorGUILayoutMode.Whole || mode == CustomEditorGUILayoutMode.Start)
+                EditorGUILayout.BeginHorizontal(GUILayout.Height(Height_Horizontal));
+
+            //行内是否需要间距
+            if (mode == CustomEditorGUILayoutMode.Insert || mode == CustomEditorGUILayoutMode.End)
+                GUILayout.Space(Space_InLine);
+
+            //property标题
+            EditorGUILayout.LabelField(label, GUILayout.Width(Width_Label));
+
+            //开始检测property变化
+            EditorGUI.BeginChangeCheck();
+
+            //创建临时变量，读取和存储property值
+            string tempValue = text;
+
+            //绘制property
+            tempValue = EditorGUILayout.TextField(new GUIContent(), tempValue, GUILayout.MinWidth(MinWidth_TextField));
+
+            //结束检测property变化
+            if (EditorGUI.EndChangeCheck())
+            {
+                //对场景标记待保存状态
+                Undo.RecordObject(target, "Text Change");
+
+                //获取property值并导出
+                text = tempValue;
+
+                //public static void RecordObject (Object objectToUndo, string name)
+                //对于 objectToUndo 为预制件实例的情况下正确处理实例
+                //必须在 RecordObject 之后调用 PrefabUtility.RecordPrefabInstancePropertyModifications
+                PrefabUtility.RecordPrefabInstancePropertyModifications(target);
+            }
 
             //是否结束当前行
             if (mode == CustomEditorGUILayoutMode.Whole || mode == CustomEditorGUILayoutMode.End)
