@@ -108,9 +108,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -285,7 +286,7 @@ MonoBehaviour:
   Player: {fileID: 2515567484837385077}
   ColPlayer: {fileID: 0}
   MoveSpeed: 10
-  JumpHeight: 3
+  JumpHeight: 1
   GravityValue: 9.81
   MaxFallSpeed: 20
   isAccelerateTimeUnLimited: 1
@@ -306,8 +307,8 @@ CharacterController:
   m_Radius: 0.28
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
+  m_SkinWidth: 0.0001
+  m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.53, z: 0}
 --- !u!1001 &3439094738455694082
 PrefabInstance:
@@ -572,13 +573,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4886043105701492702, guid: f85c4948bfaac4e48b32c1254bdec6b8,
-        type: 3}
+    - target: {fileID: 4886043105701492702, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
-    - target: {fileID: 7303413034586736062, guid: f85c4948bfaac4e48b32c1254bdec6b8,
-        type: 3}
+    - target: {fileID: 7303413034586736062, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
@@ -586,13 +585,11 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
 --- !u!4 &3434700569240024252 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4679013640650686, guid: f85c4948bfaac4e48b32c1254bdec6b8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 4679013640650686, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
   m_PrefabInstance: {fileID: 3439094738455694082}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &3379969334997268104 stripped
 Animator:
-  m_CorrespondingSourceObject: {fileID: 95154219944295818, guid: f85c4948bfaac4e48b32c1254bdec6b8,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 95154219944295818, guid: f85c4948bfaac4e48b32c1254bdec6b8, type: 3}
   m_PrefabInstance: {fileID: 3439094738455694082}
   m_PrefabAsset: {fileID: 0}

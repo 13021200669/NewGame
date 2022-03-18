@@ -57,6 +57,5 @@ public partial class CharacterControl : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-
     }
 }
