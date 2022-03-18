@@ -10,7 +10,7 @@ public class CharacterControlEditor : Editor
     //缩小比例
     SerializedProperty _ShrinkScale;
     const float _MinLimit_ShrinkScale = 0.1f;
-    const float _MaxLimit_ShrinkScale = 1f;
+    const float _MaxLimit_ShrinkScale = 10f;
 
     //缩小时间
     SerializedProperty _ShrinkTime;
